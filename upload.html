@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Upload File - Cloud Storage</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f6fa;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #0078d4;
+            padding: 15px;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .container {
+            width: 600px;
+            margin: 80px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .upload-box {
+            border: 2px dashed #0078d4;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #005ea8;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <a href="{{ url_for('upload') }}">
+        Upload
+    </a>
+
+    <a href="{{ url_for('list_files') }}">
+        Stored Files
+    </a>
+
+    <a href="{{ url_for('logout') }}">
+        Logout
+    </a>
+
+</div>
+
+
+<div class="container">
+
+    <h1>Upload File</h1>
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="upload-box">
+
+        <form
+            method="POST"
+            action="{{ url_for('upload_file') }}"
+            enctype="multipart/form-data"
+        >
+
+            <p>
+                Select a file to upload to Azure Blob Storage
+            </p>
+
+            <input
+                type="file"
+                name="file"
+                required
+            >
+
+            <br>
+
+            <button type="submit">
+                Upload File
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
